@@ -1,5 +1,5 @@
-import { Category } from './../../models/category';
 import { Component, OnInit, Inject, CUSTOM_ELEMENTS_SCHEMA, HostListener, Input } from '@angular/core';
+import { Category } from './../../models/category';
 import { Product } from '../../models/product';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
@@ -27,12 +27,11 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class ListProductComponent {
   @Input() categoryId:any;
   products: Product[] = [];
-  products1: Product[] = [];
 
   categories: Category[] = []; // Dữ liệu động từ categoryService
   selectedCategoryId: number  = 0; // Giá trị category được chọn
   currentPage: number = 0;
-  itemsPerPage: number = 100;
+  itemsPerPage: number = 40;
   pages: number[] = [];
   totalPages:number = 0;
   visiblePages: number[] = [];
@@ -73,12 +72,7 @@ export class ListProductComponent {
       });
     }
     
-    searchProducts() {
-      this.currentPage = 0;
-      this.itemsPerPage = 12;
-      debugger; 
-      this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
-    }
+
     
     getProducts(keyword: string, selectedCategoryId: number, page: number, limit: number) {
       debugger;

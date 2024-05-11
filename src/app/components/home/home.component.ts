@@ -23,10 +23,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   styleUrls: ['./home.component.scss'],
   standalone: true,
   imports: [
-    FooterComponent,
-    HeaderComponent,
     CommonModule,
     FormsModule, 
+    FooterComponent,
+    HeaderComponent,
     ListProductComponent,
     HomePartnerComponent
   ],
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   categories: Category[] = []; // Dữ liệu động từ categoryService
   selectedCategoryId: number  = 0; // Giá trị category được chọn
   currentPage: number = 0;
-  itemsPerPage: number = 12;
+  itemsPerPage: number = 40;
   pages: number[] = [];
   totalPages:number = 0;
   visiblePages: number[] = [];
