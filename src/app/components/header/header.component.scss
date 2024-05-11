@@ -1,0 +1,78 @@
+@import '../../styles/shared-styles.scss';
+
+header {
+    background-color: rgba(255, 182, 182, 0) !important;
+    color: rgb(173, 178, 203);
+    border-bottom: 1px solid rgb(100, 98, 98);
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.navbar .container {
+    background-color: rgba(255, 182, 182, 0) !important;
+}
+
+.navbar .container .navbar-brand {
+    color: rgb(173, 178, 203);
+}
+
+.navbar .container .navbar-nav .nav-link {
+    color: rgb(173, 178, 203);
+    border-radius: 18px;
+    padding: 8px 16px;
+}
+
+
+// .nav-item:not(:first-child) {
+//     margin-left: 10px; /* hoặc giá trị khoảng cách bạn muốn giữa các phần tử */
+// }
+
+.nav-item:nth-child(4){
+    position: absolute;
+    right: 100px;
+    display: flex;
+    align-items: center;
+}
+.navbar .container .navbar-nav .nav-link.active {
+    background-color: $shopapp-color !important;
+    color: white !important;
+}
+.nav-item.active {
+    background-color: $shopapp-color !important;
+    color: white !important;
+}
+// .navbar-item{
+//     display: flex;
+// }
+/* Add this CSS to your project's stylesheet */
+.nav-item:hover{
+    background-color: #333;
+    border-radius: 17px ;
+}
+.popover-list {
+    padding: 10px;
+    cursor: pointer;
+}
+.popover-body {
+    padding: 0px;
+}
+.popover-item {
+    display: block;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+.nav-item{
+    cursor: pointer;
+}
+.popover-item{
+    cursor: pointer;
+}
+.popover-item:hover {
+    background-color: #f0f0f0;
+    color: $shopapp-color;  
+    cursor: pointer;  
+}
