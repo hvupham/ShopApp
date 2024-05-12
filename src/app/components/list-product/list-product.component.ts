@@ -31,7 +31,7 @@ export class ListProductComponent {
   categories: Category[] = []; // Dữ liệu động từ categoryService
   selectedCategoryId: number  = 0; // Giá trị category được chọn
   currentPage: number = 0;
-  itemsPerPage: number = 40;
+  itemsPerPage: number = 100;
   pages: number[] = [];
   totalPages:number = 0;
   visiblePages: number[] = [];
@@ -51,7 +51,7 @@ export class ListProductComponent {
     }
 
     ngOnInit() {
-      this.currentPage = Number(this.localStorage?.getItem('currentProductPage')) || 0; 
+      this.currentPage =  0; 
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
       this.getCategories(0, 100);
     }
@@ -97,12 +97,12 @@ export class ListProductComponent {
       });    
     }
     
-    onPageChange(page: number) {
-      debugger;
-      this.currentPage = page < 0 ? 0 : page;
-      this.localStorage?.setItem('currentProductPage', String(this.currentPage)); 
-      this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
-    }
+    // onPageChange(page: number) {
+    //   debugger;
+    //   this.currentPage = page < 0 ? 0 : page;
+    //   this.localStorage?.setItem('currentProductPage', String(this.currentPage)); 
+    //   this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
+    // }
     
     generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
       const maxVisiblePages = 5;

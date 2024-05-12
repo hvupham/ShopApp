@@ -7,11 +7,11 @@
     <!--Đoạn này có 1 ô searchbox bên trái, 1 combobox bên phải  -->
     <div class="search-box">
         <input type="text" class="form-control search-input" 
-            placeholder="Tìm sản phẩm" 
+            placeholder="Search product" 
             [(ngModel)]="keyword">
         <select class="form-control product-category"             
             [(ngModel)]="selectedCategoryId">
-            <option [value]="0">Tất cả</option> 
+            <option [value]="0">All</option> 
             @for(category of categories; track category.name) {
               <option [value]="category.id">
                 {{ category.name }}
@@ -19,7 +19,7 @@
             }
             
         </select>
-        <button class="btn btn-primary" (click)="searchProducts()">Tìm kiếm</button>
+        <button class="btn btn-primary" (click)="searchProducts()">Search </button>
     </div>        
 
     <swiper-container 
@@ -40,6 +40,7 @@
 
     </swiper-container>
     <app-home-partner></app-home-partner>
+
 
     <app-list-product [categoryId]="1"></app-list-product>
     <app-list-product [categoryId]="2"></app-list-product>

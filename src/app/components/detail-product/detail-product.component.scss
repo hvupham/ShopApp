@@ -87,3 +87,22 @@ margin: 0 10px;
 outline: none;
 }  
 
+
+.product-review{
+    color: aliceblue;
+}
+.content{
+    display: flex;
+}
+.detail-pr{
+    padding-left: 100px;
+}
+.content input{
+    width: 80%;
+}
+.box-comment{
+    border: 1px solid rgb(234, 234, 235);
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+}

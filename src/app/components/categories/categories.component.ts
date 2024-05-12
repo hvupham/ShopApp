@@ -38,9 +38,6 @@ export class CategoriesComponent {
   keyword:string = "";
   localStorage?:Storage;
   apiBaseUrl = environment.apiBaseUrl;
-
-
-
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,    

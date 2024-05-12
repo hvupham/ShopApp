@@ -1,15 +1,12 @@
 <app-header></app-header>
 <div class="container">
-    <div class="intro-section">
-        <h1>Đây là trang Order</h1>
-        <p>Sử dụng Bootstrap</p>
-    </div> 
+
     <form [formGroup]="orderForm"> <!-- Thêm form và gán formGroup -->   
     <div class="row">
         <div class="col-md-5">
-            <h2 class="product-header">Thông tin người nhận</h2>
+            <h2 class="product-header">Recipient Information</h2>
                 <div class="mb-3">
-                    <label for="fullname" class="form-label">Họ và tên</label>
+                    <label for="fullname" class="form-label">Full name</label>
                     <input type="text" 
                         formControlName="fullname" 
                         class="form-control" 
@@ -18,7 +15,7 @@
                     @if(orderForm.get('fullname')!.invalid &&
                         orderForm.get('fullname')!.touched) {
                         <div class="invalid-feedback">
-                            Họ và tên là trường bắt buộc.
+                            Full name is required.
                         </div>
                     }                        
                 </div>
@@ -40,7 +37,7 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="phone" class="form-label">Số điện thoại</label>
+                    <label for="phone" class="form-label">Phone Number</label>
                     <input type="text" 
                         class="form-control" 
                         formControlName="phone_number"                         
@@ -51,12 +48,12 @@
                         @if(orderForm.get('phone_number')!.invalid 
                             && orderForm.get('phone_number')!.touched) {
                             <div class="invalid-feedback">
-                                Số điện thoại là trường bắt buộc và ít nhất 6 ký tự.
+                                Phone number is required and must be at least 6 characters.
                             </div>
                         }                        
                 </div>
                 <div class="mb-3">
-                    <label for="address" class="form-label">Địa chỉ</label>
+                    <label for="address" class="form-label">Address</label>
                     <input type="text" 
                         class="form-control" 
                         formControlName="address"                         
@@ -67,13 +64,13 @@
                     @if(orderForm.get('address')!.invalid 
                         && orderForm.get('address')!.touched) {
                     <div class="invalid-feedback">
-                        Địa chỉ là trường bắt buộc và ít nhất 5 ký tự.
+                        Address is required and must be at least 5 characters.
                     </div>
                     }
                     
                 </div>
                 <div class="mb-3">
-                    <label for="note" class="form-label">Ghi chú</label>
+                    <label for="note" class="form-label">Note</label>
                     <input type="text" 
                         class="form-control" 
                         formControlName="note"                                                 
@@ -82,25 +79,25 @@
                         id="note">
                 </div>
                 <div class="mb-3">
-                    <label for="shippingMethod">Phương thức vận chuyển</label>
+                    <label for="shippingMethod">Shipping method</label>
                     <select class="form-control" id="shippingMethod" 
                         formControlName="shipping_method">
-                        <option value="express">Nhanh (Express)</option>
-                        <option value="normal">Thường (Normal)</option>
+                        <option value="express">Express</option>
+                        <option value="normal">Normal</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="paymentMethod">Phương thức thanh toán</label>
+                    <label for="paymentMethod">Payment method</label>
                     <select class="form-control" id="paymentMethod"
                         formControlName="payment_method">                     
-                        <option value="cod">Thanh toán khi nhận hàng (COD)</option>
-                        <option value="other">Thanh toán khác</option>
+                        <option value="cod">Cash on Delivery (COD)</option>
+                        <option value="other">TOther payment</option>
                     </select>
                 </div>
             <!-- </form> -->
         </div>        
         <div class="col-md-7">
-            <h2 class="product-order">Sản phẩm đã đặt hàng</h2>
+            <h2 class="product-order">Ordered items</h2>
             <table>
                 <tbody>
                     <ng-container *ngFor="let item of cartItems; let i = index">
@@ -133,28 +130,28 @@
               
         </table>   
             <div class="text-start mt-3">
-                <h4 class="header-text text-end ">Tổng giá: {{ totalAmount | number:'1.2-2'}} đ</h4>
+                <h4 class="header-text text-end ">Total price: {{ totalAmount | number:'1.2-2'}} đ</h4>
             </div>
             <div class="mt-3">
-                <h4 class="product-header">Nhập coupon</h4>
+                <h4 class="product-header">Enter coupon</h4>
                 <div class="input-group">
                     <input type="text" class="form-control" 
                         formControlName="couponCode" 
                         placeholder="Nhập coupon">
                     <button 
                         (click)="applyCoupon()"
-                        class="btn btn-gradient" type="button">Áp dụng</button>
+                        class="btn btn-gradient" type="button">Apply</button>
                 </div>
             </div>    
             @if(couponDiscount > 0) {
                 <div class="text-start mt-3">
-                    <h6 class="header-text text-end ">Bạn được discount: {{ couponDiscount | number:'1.2-2'}} đ</h6>
+                    <h6 class="header-text text-end ">You've been discounted: {{ couponDiscount | number:'1.2-2'}} đ</h6>
                 </div>
             }
             <div class="text-start mt-3">
                 <button 
                     (click)="placeOrder()"
-                    class="btn btn-gradient" type="button">Đặt hàng</button>
+                    class="btn btn-gradient" type="button">Place order</button>
             </div>
         </div>
     </div>   

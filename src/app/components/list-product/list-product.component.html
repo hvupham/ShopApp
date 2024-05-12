@@ -14,7 +14,7 @@
                     <img [src]="product.url" alt="Product Image" class="product-image">
                     <h3 class="product-name">{{ product.name }}</h3>
                     <p class="product-description">{{ product.description }}</p>
-                    <p class="product-price">Giá: ${{ product.price }}</p>                
+                    <p class="product-price">Price: ${{ product.price }}</p>                
                 </div>
               </div>
             }   -->
@@ -35,8 +35,8 @@
               <div class="product-item" (click)="onProductClick(product.id)">
                   <img [src]="product.url" alt="Product Image" class="product-image">
                   <h3 class="product-name">{{ product.name }} </h3>
-                  <p class="product-description">{{ product.description }}</p>
-                  <p class="product-price">Giá: ${{ product.price }}</p>                
+                  <!-- <p class="product-description">{{ product.description }}</p> -->
+                  <p class="product-price">Price: {{ product.price }} VND</p>                
               </div>
             </swiper-slide>  
           }

@@ -30,11 +30,7 @@ export class ProductService {
     return this.http.get<ApiResponse>(`${this.apiBaseUrl}/products`, { params });
   }
   
-  getProducts1(
-  ): Observable<ApiResponse> {
-   
-    return this.http.get<ApiResponse>(`${this.apiBaseUrl}/products`);
-  }
+
 
   getDetailProduct(productId: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${this.apiBaseUrl}/products/${productId}`);

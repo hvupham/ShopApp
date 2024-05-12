@@ -2,6 +2,7 @@
 
 .container {
     color: white;
+    margin-top: 100px;
 }
 .intro-section {
     color: white;
@@ -28,7 +29,10 @@
     color: $shopapp-tint-color;
 }
 .product-order {
-    color: $shopapp-title-color;
+    color:aliceblue;
+}
+.buton-place:hover{
+    background-color:aliceblue;
 }
 table {
     width: 100%;
@@ -42,7 +46,7 @@ table {
 
 th,
 td {
-    padding: 10px;
+    padding: 7px;
     text-align: center;
 }
 .product-info {
@@ -72,8 +76,13 @@ td {
 
 .border-wrapper {
     border: 1px solid white;
+    width: 70px;
+    border-radius: 10px;
+    background-color: $shopapp-tint-color;
 }
-
+.border-wrapper:hover{
+    background-color: $shopapp-color;
+}
 .product-quantity {
     display: flex;
     align-items: center;

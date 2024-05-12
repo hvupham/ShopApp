@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
+import { environment } from '../../../../environments/environment';
+import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
 import { OrderResponse } from '../../../responses/order/order.response';
 import { OrderService } from '../../../services/order.service';
-import { CommonModule,DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiResponse } from '../../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -15,7 +15,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 @Component({
   selector: 'app-order-admin',
   templateUrl: './order.admin.component.html',
-  styleUrls: ['./order.admin.component.scss'],
+  styleUrls: [
+    './order.admin.component.scss'
+  ],
   standalone: true,
   imports: [   
     CommonModule,
@@ -24,6 +26,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 })
 export class OrderAdminComponent implements OnInit{  
   orders: OrderResponse[] = [];
+  // orders: Order[] = [];
   currentPage: number = 0;
   itemsPerPage: number = 12;
   pages: number[] = [];

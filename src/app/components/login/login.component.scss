@@ -67,6 +67,10 @@
 .register-link {
     color: $shopapp-title-color;
     text-decoration: none;
+    cursor: pointer;
+}
+.register-link:hover {
+    color: $shopapp-color;
 }
 .access-right {
     margin-top: 20px;
@@ -111,4 +115,7 @@
     background-color: rgb(243, 165, 42);
     /* background-color: rgb(105, 244, 181) */
     margin: 20px;
+}
+label {
+    font-weight: bold;
 }

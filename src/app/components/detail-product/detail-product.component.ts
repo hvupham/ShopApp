@@ -14,6 +14,9 @@ import { ApiResponse } from '../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ListProductComponent } from '../list-product/list-product.component';
 import { Category } from '../../models/category';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
@@ -24,7 +27,8 @@ import { Category } from '../../models/category';
     HeaderComponent,
     CommonModule,
     NgbModule,
-    ListProductComponent
+    ListProductComponent,
+    MatProgressBarModule
   ]
 })
 
