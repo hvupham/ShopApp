@@ -1,0 +1,47 @@
+@import '../../styles/shared-styles.scss';
+
+.container{
+    color: aliceblue;
+    margin-bottom: 100px;
+}
+table {
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    border-collapse: separate;
+    border: 1px solid white;
+    border-spacing: 0;
+    background-color: $shopapp-background-color;    
+    padding: 80px;
+}
+thead{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+th{
+    text-align: center;
+}
+tr{
+    padding-top: 20px !important ;
+}
+tr:hover{
+    background-color: rgb(108, 97, 120);
+    border-radius: 8px;
+}
+td{
+    margin-top: 100px;
+    text-align: center;
+}
+img{
+    width: 60px !important;
+    border-radius: 8px;
+    margin-right: 10px;
+}
+tr :nth-child(1){
+    text-align: left;
+    cursor: pointer;
+}
+.product-images{
+    margin: 5px 10px;
+    border-radius: 10px;
+}

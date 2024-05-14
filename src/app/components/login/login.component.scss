@@ -4,7 +4,7 @@
     color: white;
     height: 100vh;
     margin-top: 100px ;
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 .login-form {
     background-color: $shopapp-background-color;
@@ -18,7 +18,6 @@
 .login-header {
     text-align: center;
     color: $shopapp-title-color;
-    margin-bottom: 20px;
 }
 .form-control {
     background-color: transparent;

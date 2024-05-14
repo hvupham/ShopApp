@@ -13,6 +13,7 @@ import { OrderResponse } from '../../../responses/order/order.response';
 import { OrderService } from '../../../services/order.service';
 import { ApiResponse } from '../../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { OrderDetail } from '../../../models/order.detail';
 
 @Component({
   selector: 'app-detail-order-admin',
@@ -77,11 +78,11 @@ export class DetailOrderAdminComponent implements OnInit{
             response.order_date[2]
           );        
         }        
+        console.log(this.orderResponse.total_money)
         this.orderResponse.order_details = response.order_details
-          .map((order_detail:any) => {
-          order_detail.product.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
-          order_detail.number_of_products = order_detail.numberOfProducts
-          //order_detail.total_money = order_detail.totalMoney
+          .map((order_detail: OrderDetail) => {
+          order_detail.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.thumbnail}`;
+          // order_detail.number_of_products = order_detail.numberOfProducts;
           return order_detail;
         });        
         this.orderResponse.payment_method = response.payment_method;

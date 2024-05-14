@@ -1,7 +1,8 @@
 @import '../../styles/shared-styles.scss';
 
 .container {
-    color: white;
+    color: rgb(199, 194, 194);
+    margin-bottom: 200px;
 }
 .confirmation-container {
     margin: 50px auto;
@@ -29,11 +30,11 @@
 table {
     width: 100%;
     border-radius: 10px;
-    border: none;
     border-collapse: separate;
-    border: 1px solid white;
+    border: 1px solid rgb(150, 150, 150);
     border-spacing: 0;    
-    background-color: $shopapp-background-color;    
+    background-color: $shopapp-background-color;   
+    margin-bottom: 100px; 
 }
 
 th,
@@ -46,4 +47,12 @@ td {
     color: white;
     border-radius: 30px;
     width: 200px;
+}
+.intro-section{
+    margin: 30px 0;
+}
+span{
+    font-weight: bold;
+    color: aliceblue;
+    margin-right: 20px;
 }

@@ -28,6 +28,10 @@ export class OrderService {
     const url = `${environment.apiBaseUrl}/orders/${orderId}`;
     return this.http.get<ApiResponse>(url);
   }
+  getOrdersByUserId(userId: number): Observable<ApiResponse> {
+    const url = `${environment.apiBaseUrl}/orders/user/${userId}`;
+    return this.http.get<ApiResponse>(url);
+  }
   getAllOrders(keyword:string,
     page: number, limit: number
   ): Observable<ApiResponse> {

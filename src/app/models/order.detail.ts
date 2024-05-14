@@ -4,6 +4,8 @@ export interface OrderDetail {
     id: number;
     order: Order;
     product: Product;
+    product_name: string;
+    thumbnail: string;
     price: number;
     number_of_products: number;
     total_money: number;

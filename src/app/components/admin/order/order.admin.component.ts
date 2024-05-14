@@ -1,3 +1,4 @@
+import { ApiResponse } from './../../../responses/api.response';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
@@ -9,7 +10,6 @@ import { Location } from '@angular/common';
 import { OrderResponse } from '../../../responses/order/order.response';
 import { OrderService } from '../../../services/order.service';
 import { FormsModule } from '@angular/forms';
-import { ApiResponse } from '../../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -28,7 +28,7 @@ export class OrderAdminComponent implements OnInit{
   orders: OrderResponse[] = [];
   // orders: Order[] = [];
   currentPage: number = 0;
-  itemsPerPage: number = 12;
+  itemsPerPage: number = 40;
   pages: number[] = [];
   totalPages:number = 0;
   keyword:string = "";
@@ -61,9 +61,11 @@ export class OrderAdminComponent implements OnInit{
     this.orderService.getAllOrders(keyword, page, limit).subscribe({
       next: (apiResponse: ApiResponse) => {
         debugger        
-        this.orders = apiResponse.data.orders;
+        this.orders = apiResponse.data;
         this.totalPages = apiResponse.data.totalPages;
-        this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+        // this.visiblePages = this.generateVisiblePageArray(this.currentPage, this.totalPages);
+        console.log(this.orders)
+        console.log(1)
       },
       complete: () => {
         debugger;
@@ -73,6 +75,7 @@ export class OrderAdminComponent implements OnInit{
         console.error(error?.error?.message ?? '');
       }
     });    
+    
   }
   onPageChange(page: number) {
     debugger;
@@ -81,20 +84,20 @@ export class OrderAdminComponent implements OnInit{
     this.getAllOrders(this.keyword, this.currentPage, this.itemsPerPage);
   }
 
-  generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
-    const maxVisiblePages = 5;
-    const halfVisiblePages = Math.floor(maxVisiblePages / 2);
+  // generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
+  //   const maxVisiblePages = 5;
+  //   const halfVisiblePages = Math.floor(maxVisiblePages / 2);
 
-    let startPage = Math.max(currentPage - halfVisiblePages, 1);
-    let endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+  //   let startPage = Math.max(currentPage - halfVisiblePages, 1);
+  //   let endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
 
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(endPage - maxVisiblePages + 1, 1);
-    }
+  //   if (endPage - startPage + 1 < maxVisiblePages) {
+  //     startPage = Math.max(endPage - maxVisiblePages + 1, 1);
+  //   }
 
-    return new Array(endPage - startPage + 1).fill(0)
-        .map((_, index) => startPage + index);
-  }
+  //   return new Array(endPage - startPage + 1).fill(0)
+  //       .map((_, index) => startPage + index);
+  // }
 
   deleteOrder(id:number) {
     const confirmation = window

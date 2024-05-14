@@ -49,6 +49,7 @@ export class OrderComponent implements OnInit{
   couponApplied: boolean = false;
   cart: Map<number, number> = new Map();
   orderData: OrderDTO = {
+    order_id: 0,
     user_id: 0, // Thay bằng user_id thích hợp
     fullname: '', // Khởi tạo rỗng, sẽ được điền từ form
     email: '', // Khởi tạo rỗng, sẽ được điền từ form    
@@ -107,7 +108,7 @@ export class OrderComponent implements OnInit{
             quantity: this.cart.get(productId)!
           };
         });
-        console.log('haha');
+        // console.log(this.cartItems);
       },
       complete: () => {
         debugger;
@@ -142,12 +143,14 @@ export class OrderComponent implements OnInit{
         quantity: cartItem.quantity
       }));
       this.orderData.total_money =  this.totalAmount;
+      // console.log(this.orderData)
       // Dữ liệu hợp lệ, bạn có thể gửi đơn hàng đi
       this.orderService.placeOrder(this.orderData).subscribe({
         next: (response: ApiResponse) => {
           debugger;          
           alert('Order placed successfully.');
           this.cartService.clearCart();
+          this.saveProductsToLocalStorage();
           this.router.navigate(['/']);
         },
         complete: () => {
@@ -163,6 +166,17 @@ export class OrderComponent implements OnInit{
       // Hiển thị thông báo lỗi hoặc xử lý khác
       console.error('Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.');
     }        
+  }
+  // lưu dữ liệu vào local storage
+  saveProductsToLocalStorage() {
+    
+
+
+    const existingOrders = JSON.parse(localStorage.getItem('orderedProducts') || '[]');
+    const productsToSave = this.orderData;
+  
+    const allOrders = [...existingOrders, productsToSave];
+    localStorage.setItem('orderedProducts', JSON.stringify(allOrders));
   }
     
   decreaseQuantity(index: number): void {

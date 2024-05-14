@@ -1,3 +1,4 @@
+import { OrderDetail } from './../../models/order.detail';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartService } from '../../services/cart.service';
@@ -7,7 +8,6 @@ import { OrderDTO } from '../../dtos/order/order.dto';
 import { ActivatedRoute } from '@angular/router';
 import { OrderResponse } from '../../responses/order/order.response';
 import { environment } from '../../../environments/environment';
-import { OrderDetail } from '../../models/order.detail';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
@@ -54,12 +54,14 @@ export class OrderDetailComponent implements OnInit {
   
   getOrderDetails(): void {
     debugger
-    const orderId = Number(this.route.snapshot.paramMap.get('orderId'));
+    const orderId = Number(this.route.snapshot.paramMap.get('id'));
+    // const orderId = 48;
+
     this.orderService.getOrderById(orderId).subscribe({
       next: (apiResponse: ApiResponse) => {        
         debugger;   
-        const response = apiResponse.data    
-        this.orderResponse.id = response.id;
+        const response = apiResponse.data; 
+        this.orderResponse.id= response.id;
         this.orderResponse.user_id = response.user_id;
         this.orderResponse.fullname = response.fullname;
         this.orderResponse.email = response.email;
@@ -70,13 +72,20 @@ export class OrderDetailComponent implements OnInit {
           response.order_date[0], 
           response.order_date[1] - 1, 
           response.order_date[2]
-        );        
+        );       
+
+        console.log(apiResponse.data)
+        // this.orderResponse.order_details = response.order_details;
         
         this.orderResponse.order_details = response.order_details
           .map((order_detail: OrderDetail) => {
-          order_detail.product.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
+          // order_detail.product.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.product.thumbnail}`;
+          order_detail.thumbnail = `${environment.apiBaseUrl}/products/images/${order_detail.thumbnail}`;
+  
           return order_detail;
-        });        
+        }); 
+         console.log(this.orderResponse.order_details);
+                
         this.orderResponse.payment_method = response.payment_method;
         this.orderResponse.shipping_date = new Date(
           response.shipping_date[0], 

@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
           debugger;
           console.error(error?.error?.message ?? '');
         }
-      });    
+      });  
     }
     
     onPageChange(page: number) {

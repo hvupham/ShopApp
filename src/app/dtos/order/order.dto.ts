@@ -9,6 +9,7 @@ import { Type } from 'class-transformer';
 import { CartItemDTO } from './cart.item.dto';
 
 export class OrderDTO {
+  order_id: number;
   user_id: number;
 
   fullname: string;
@@ -36,6 +37,7 @@ export class OrderDTO {
   cart_items: { product_id: number, quantity: number }[]; // Thêm cart_items để lưu thông tin giỏ hàng
 
   constructor(data: any) {
+    this.order_id = data.order_id;
     this.user_id = data.user_id;
     this.fullname = data.fullname;
     this.email = data.email;

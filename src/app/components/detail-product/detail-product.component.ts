@@ -23,12 +23,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrls: ['./detail-product.component.scss'],
   standalone: true,
   imports: [
-    FooterComponent,
     HeaderComponent,
     CommonModule,
     NgbModule,
     ListProductComponent,
-    MatProgressBarModule
+    MatProgressBarModule,
+    FooterComponent,
   ]
 })
 

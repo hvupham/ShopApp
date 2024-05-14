@@ -2,9 +2,9 @@
 <form [formGroup]="userProfileForm"> 
 <div class="row">
     <div class="col-md-3 mx-auto">
-        <h2 class="product-header">Thông tin người dùng</h2>
+        <h2 class="product-header">User Information</h2>
             <div class="mb-3">
-                <label for="fullname" class="form-label">Họ và tên</label>
+                <label for="fullname" class="form-label">Full Name</label>
                 <input type="text" 
                     formControlName="fullname" 
                     class="form-control" 
@@ -14,7 +14,7 @@
                   userProfileForm.get('fullname')!.touched) {
                     <div                       
                       class="invalid-feedback">
-                      Họ và tên là trường bắt buộc.
+                      Full Name is required.
                   </div>
                   }                    
             </div>
@@ -27,14 +27,14 @@
                     [class.is-invalid]="userProfileForm.get('address')!.invalid && userProfileForm.get('address')!.touched">                
             </div>                        
             <div class="mb-3">
-                <label for="date_of_birth" class="form-label">Ngày sinh</label>
+                <label for="date_of_birth" class="form-label">Date of Birth</label>
                 <input type="date" 
                     formControlName="date_of_birth" 
                     class="form-control" 
                     id="date_of_birth" >                
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu</label>
+                <label for="password" class="form-label">Password</label>
                 <input type="password" 
                        class="form-control" 
                        formControlName="password"                         
@@ -51,25 +51,25 @@
                   }                
               </div>              
               <div class="mb-3">
-                <label for="retype_password" class="form-label">Nhập lại mật khẩu</label>
+                <label for="retype_password" class="form-label">Retype Password</label>
                 <input type="password" 
                        class="form-control" 
                        formControlName="retype_password"                         
-                       placeholder="Nhập lại mật khẩu" 
+                       placeholder="Retype Password" 
                        required
                        id="retype_password" 
                        [class.is-invalid]="userProfileForm.get('retype_password')!.invalid 
                           && userProfileForm.get('retype_password')!.touched">
                   @if(userProfileForm.hasError('passwordMismatch')) {
                     <div class="invalid-feedback">
-                      Mật khẩu không khớp.
+                      Passwords do not match.
                     </div>
                   }                  
               </div>              
               <div class="text-center">
                 <button type="button" 
                     (click)="save()"
-                    class="btn btn-primary">Lưu thay đổi</button>
+                    class="btn btn-primary">Save</button>
               </div>
             </div>  
 
