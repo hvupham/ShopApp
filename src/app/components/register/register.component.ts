@@ -80,7 +80,7 @@ export class RegisterComponent {
         next: (apiResponse: ApiResponse) => {
           debugger
           const confirmation = window
-            .confirm('Đăng ký thành công, mời bạn đăng nhập. Bấm "OK" để chuyển đến trang đăng nhập.');
+            .confirm('Registration is successful, invite you to log in. Click "OK" to go to the login page.');
           if (confirmation) {
             this.router.navigate(['/login']);
           }
