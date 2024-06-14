@@ -1,7 +1,97 @@
+<div class="mx-auto px-4">
+  <h1 class="text-3xl font-bold">Orders Admin Page</h1>
+  <div class="flex mb-4">
+    <div class="w-full md:w-8/12 px-2">
+      <input type="text" 
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Search" 
+        v-model="keyword">
+    </div>
+    <div class="w-full md:w-4/12 px-2">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="searchOrders">Search</button>
+    </div>
+  </div>
+  <table class="table-auto w-full">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">ID</th>
+          <th class="px-4 py-2">User ID</th>
+          <th class="px-4 py-2">Full Name</th>
+          <th class="px-4 py-2">Email</th>
+          <th class="px-4 py-2">Phone Number</th>
+          <th class="px-4 py-2">Address</th>
+          <th class="px-4 py-2">Note</th>
+          <th class="px-4 py-2">Order Date</th>
+          <th class="px-4 py-2">Status</th>
+          <th class="px-4 py-2">Total Money</th>
+          <th class="px-4 py-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(order of orders; track order.id){
+          <tr>
+            <td class="border px-4 py-2">{{ order.id }}</td>
+            <td class="border px-4 py-2">{{ order.user_id }}</td>
+            <td class="border px-4 py-2">{{ order.fullname }}</td>
+            <td class="border px-4 py-2">{{ order.email }}</td>
+            <td class="border px-4 py-2">{{ order.phone_number }}</td>
+            <td class="border px-4 py-2">{{ order.address }}</td>
+            <td class="border px-4 py-2">{{ order.note }}</td>
+            <td class="border px-4 py-2">{{ order.order_date | date }}</td>
+            <td class="border px-4 py-2">{{ order.status }}</td>
+            <td class="border px-4 py-2">{{ order.total_money }}</td>
 
+            <td class="border px-4 py-2">
+              <div class="flex space-x-4">
+              <button (click)="viewDetails(order)"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    View Details
+              </button>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" 
+                (click)="deleteOrder(order.id)"
+                >Delete</button>                
+              </div>
+            </td>                        
+          </tr>
+        }          
+      </tbody>
+    </table>
+  <div class="flex justify-center">
+      <nav aria-label="Page navigation">
+          <ul class="pagination">
+              @if(currentPage > 1) {
+                <li class="page-item" >
+                  <a class="page-link" 
+                  (click)="onPageChange(1)">First</a>
+                </li>
+                <li class="page-item" >
+                    <a class="page-link" 
+                    (click)="onPageChange(currentPage - 1)">Previous</a>
+                </li>
+              }
+              @for(page of visiblePages; track page) {
+                <ng-container>
+                  <li class="page-item" :class="{'active': page === currentPage}">
+                      <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+                  </li>
+                </ng-container>
+              }
+              
+              @if(currentPage < totalPages) {
+                <li class="page-item">
+                  <a class="page-link" (click)="onPageChange(currentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" (click)="onPageChange(totalPages)">Last</a>
+                </li>
+              }                
+          </ul>
+      </nav>
+  </div>
+</div>
+
+<!-- 
 <div class="container-fluid">
   <h1>Orders Admin Page</h1>
-  <!--Đoạn này có 1 ô searchbox bên trái, 1 combobox bên phải  -->
   <div class="row mb-3">
     <div class="col-md-8">
       <input type="text" 
@@ -25,13 +115,6 @@
           <th>Order Date</th>
           <th>Status</th>
           <th>Total Money</th>
-          <!--
-          <th>Shipping Method</th>
-          <th>Shipping Address</th>
-          
-            <th>Shipping Date</th>
-          <th>Payment Method</th>
-          -->
           <th>Action</th>
         </tr>
       </thead>
@@ -49,13 +132,7 @@
             <td>{{ order.order_date | date }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.total_money }}</td>
-            <!--
-            <td>{{ order.shipping_method }}</td>
-            <td>{{ order.shipping_address }}</td>
-            
-            <td>{{ order.shipping_date | date }}</td>
-            <td>{{ order.payment_method }}</td>
-            -->
+
             <td>
               <div style="display: flex; gap: 10px;">
               <button 
@@ -106,4 +183,4 @@
   </div>
 </div>
 
-    
+     -->

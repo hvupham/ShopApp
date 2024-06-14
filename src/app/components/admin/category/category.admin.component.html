@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <h1>Category Admin</h1>        
     <div class="row">
       <div class="col-md-8 ">
@@ -32,6 +32,49 @@
           </tr>
         } @empty {
           <h2>No categories found</h2>
+        }
+        
+      </tbody>
+    </table>    
+  </div> -->
+
+  <div class="mx-auto px-4">
+    <h1 class="text-3xl font-bold">Category Admin</h1>        
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-full md:w-8/12 px-2">
+        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" (click)="insertCategory()">
+          Add new Category
+        </button>
+      </div>      
+    </div>
+    <table class="table-auto w-full">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="px-4 py-2">ID</th>
+          <th class="px-4 py-2">Name</th>          
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody>        
+        @for(category of categories; track category.id){
+          <tr>
+            <td class="border px-4 py-2">{{ category.id }}</td>
+            <td class="border px-4 py-2">{{ category.name }}</td>          
+            <td class="border px-4 py-2">
+              <div class="flex space-x-4">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" 
+                    (click)="updateCategory(category.id)">
+                  Update
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" 
+                  (click)="deleteCategory(category)">
+                  Delete
+                </button>            
+                </div>
+            </td>          
+          </tr>
+        } @empty {
+          <h2 class="text-2xl font-bold">No categories found</h2>
         }
         
       </tbody>
