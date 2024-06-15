@@ -65,9 +65,11 @@ swiper-slide{
     transition: transform 0.3s ease;
 
 }
-
 .product-item:hover {
-    transform: translateY(-5px); /* Di chuyển lên một số pixel khi hover vào */
+    transform: translateY(-8px); /* Di chuyển lên một số pixel khi hover vào */
+    box-shadow: 0 0 5px cyan,
+    0 0 25px cyan,
+;
 }
 // .col-lg-4 {
 //     width: 300px;
@@ -140,4 +142,13 @@ swiper-slide{
 
 .title{
     color: #ccc;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0;
+    font-family: SF Pro Display, sans-serif;
+}
+
+swiper-container{
+    padding: 10px 0;
 }
