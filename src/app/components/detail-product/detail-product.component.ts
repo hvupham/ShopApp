@@ -1,3 +1,6 @@
+import { ApiResponse } from './../../responses/api.response';
+import { InsertCommentDTO } from './../../dtos/comment/insert.comment.dto';
+import { CommentService } from './../../services/comment.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
@@ -10,12 +13,13 @@ import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ApiResponse } from '../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { ListProductComponent } from '../list-product/list-product.component';
 import { Category } from '../../models/category';
-
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { response } from 'express';
+import { Comment } from '../../models/comment';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-detail-product',
@@ -35,29 +39,47 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class DetailProductComponent implements OnInit {
   product?: Product;
   category?: Category;
+  comments: Comment[] = [];
   productId: number = 0;
   currentImageIndex: number = 0;
   quantity: number = 1;
   isPressedAddToCart:boolean = false;
+  localStorage?:Storage;
+  userResponse: any = {};
+
+  insertCommentDTO: InsertCommentDTO = {
+    productId: 0,
+    content: '',
+    userId: 0,
+  }
   constructor(
     private productService: ProductService,
     private cartService: CartService,
     private categoryService: CategoryService,
+    private commentService:CommentService,
     // private categoryService: CategoryService,
     // private router: Router,
       private activatedRoute: ActivatedRoute,
       private router: Router,
     ) {
+      this.localStorage = document.defaultView?.localStorage;
+
       
     }
     ngOnInit() {
       // Lấy productId từ URL      
+      const userResponseString = localStorage.getItem('user');
+      if (userResponseString){
+        this.userResponse = JSON.parse(userResponseString);
+        this.insertCommentDTO.userId = this.userResponse.userId;
+      }
       const idParam = this.activatedRoute.snapshot.paramMap.get('id');
       debugger
       //this.cartService.clearCart();
       //const idParam = 9 //fake tạm 1 giá trị
       if (idParam !== null) {
         this.productId = +idParam;
+        this.insertCommentDTO.productId = this.productId;
       }
       if (!isNaN(this.productId)) {
         
@@ -151,4 +173,30 @@ export class DetailProductComponent implements OnInit {
       }
       this.router.navigate(['/orders']);
     }    
+
+    // comment
+    getAllCommentByProduct(productId:number){
+      this.commentService.getAllcommentsByProduct(productId).subscribe({
+        next:(apiResponse:ApiResponse) =>{
+          this.comments = apiResponse.data
+        },
+        complete: () => {
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error(error?.error?.message ?? '');
+        } 
+      })
+
+    }
+    insertComment(){
+      this.commentService.insertComment(this.insertCommentDTO).subscribe({
+        next: (response) =>{
+          console.log("insert comment successfully")
+        },
+        error: (error: HttpErrorResponse) => {
+          debugger;
+          console.error(error?.error?.message ?? '');
+        }  
+      })
+    }
 }

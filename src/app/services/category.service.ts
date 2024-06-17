@@ -6,7 +6,6 @@ import { Category } from '../models/category';
 import { UpdateCategoryDTO } from '../dtos/category/update.category.dto';
 import { InsertCategoryDTO } from '../dtos/category/insert.category.dto';
 import { ApiResponse } from '../responses/api.response';
-
 @Injectable({
   providedIn: 'root'
 })
