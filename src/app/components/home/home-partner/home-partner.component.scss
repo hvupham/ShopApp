@@ -12,7 +12,19 @@ swiper-slide{
 h2{
     margin-top: 20px;
     color: rgb(234, 234, 235);
+    font-size: 20px;
+    font-weight: bold;
 }
 hr{
     color: white;
+}
+img{
+    transition: transform 0.9s ease;
+
+}
+img:hover {
+    transform: translateY(-8px); /* Di chuyển lên một số pixel khi hover vào */
+    box-shadow: 0 0 1px cyan,
+    0 0 10px cyan,
+;
 }

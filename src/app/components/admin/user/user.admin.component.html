@@ -21,12 +21,15 @@
             <td class="border px-4 py-2">{{ user.is_active ? 'Active' : 'Inactive' }}</td>
             <td class="border px-4 py-2">{{ user.role.name }}</td>
             <td class="border px-4 py-2">
-                <button class="py-2 px-4 rounded" :class="{
+                <!-- <button class="py-2 px-4 rounded" :class="{
                         'bg-red-500 hover:bg-red-700 text-white': user.is_active,
                         'bg-green-500 hover:bg-green-700 text-white': !user.is_active
                       }" (click)="toggleUserStatus(user)">
                     {{ user.is_active ? 'Block User' : 'Unblock User' }}
-                </button>
+                </button> -->
+                <button class="btn btn-danger transition ease-in-out delay-150"  (click)="toggleUserStatus(user)">
+              <i class="fas fa-ban"></i>
+          </button>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" (click)="resetPassword(user.id)">
                     Reset Password
                 </button>
