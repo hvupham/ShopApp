@@ -1,7 +1,7 @@
 import { ApiResponse } from './../../responses/api.response';
 import { InsertCommentDTO } from './../../dtos/comment/insert.comment.dto';
 import { CommentService } from './../../services/comment.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { ProductService } from '../../services/product.service';
@@ -74,8 +74,6 @@ export class DetailProductComponent implements OnInit {
         this.insertCommentDTO.userId = this.userResponse.userId;
       }
       const idParam = this.activatedRoute.snapshot.paramMap.get('id');
-      debugger
-      //this.cartService.clearCart();
       //const idParam = 9 //fake tạm 1 giá trị
       if (idParam !== null) {
         this.productId = +idParam;
