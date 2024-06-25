@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiResponse } from '../../responses/api.response';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
+import { environment } from '../../../environments/environment.development';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,21 +33,6 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 export class LoginComponent implements OnInit{
   @ViewChild('loginForm') loginForm!: NgForm;
 
-  /*
-  //Login user1
-  phoneNumber: string = '33445566';
-  password: string = '123456789';
-
-  //Login user2
-  phoneNumber: string = '0964896239';
-  password: string = '123456789';
-
-
-  //Login admin
-  phoneNumber: string = '11223344';
-  password: string = '11223344';
-
-  */
   phoneNumber: string = '33445566';
   password: string = '123456789';
   showPassword: boolean = false;
@@ -148,5 +134,10 @@ export class LoginComponent implements OnInit{
   }
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+  continueWithGoogle(){
+    debugger;
+    window.location.href = "http://localhost:8088/oauth2/authorization/google";
+
   }
 }

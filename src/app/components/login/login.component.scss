@@ -118,3 +118,21 @@
 label {
     font-weight: bold;
 }
+
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DB4437; /* Màu của Google */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .btn-google:hover {
+    background-color: #cc3127; /* Màu hover */
+  }

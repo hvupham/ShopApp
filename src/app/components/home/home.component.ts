@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { Component, OnInit, Inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Product } from '../../models/product';
 import { Category } from '../../models/category';
@@ -15,8 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { ListProductComponent } from '../list-product/list-product.component';
 import { HomePartnerComponent } from './home-partner/home-partner.component';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
-
+import { RegisterDTO } from '../../dtos/user/register.dto';
+import { response } from 'express';
 @Component({
   selector: 'app-home', 
   templateUrl: './home.component.html',
@@ -33,6 +34,24 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeComponent implements OnInit {
+  registerDto: RegisterDTO = {
+    fullname : '',
+    phone_number : '',
+    password : '',
+    retype_password : '',
+    address : '',
+    date_of_birth: new Date(),
+    role_id: 1,
+    google_account_id: 0,
+    facebook_account_id: 0,
+    email: '',
+    avatar: ''
+  };
+  idEmail: number = 0;
+  typeRequest: string ='';
+  avatar: string = '';
+
+
   products: Product[] = [];
   
   categories: Category[] = []; // Dữ liệu động từ categoryService
@@ -53,6 +72,8 @@ export class HomeComponent implements OnInit {
     private categoryService: CategoryService,    
     private router: Router,
     private tokenService: TokenService,
+    private userService: UserService,
+
     @Inject(DOCUMENT) private document: Document
     ) {
       this.localStorage = document.defaultView?.localStorage;
@@ -138,5 +159,26 @@ export class HomeComponent implements OnInit {
       debugger;
       // Điều hướng đến trang detail-product với productId là tham số
       this.router.navigate(['/products', productId]);
+    }
+    loginGmail(){
+      if (this.typeRequest == "email"){
+        this.registerDto.google_account_id = 1;
+        this.userService.getGoogleUserInfo(this.idEmail).subscribe({
+          next: (response: any) =>{
+            this.avatar = response.picture;
+            this.registerDto.email = response.email;
+            this.registerDto.fullname = "";
+            // this.registerDto.date_of_birth = response.date_of_birth;
+            // this.registerDto.password = this.userProfileForm.get('password')?.value;
+            // this.registerDto.address = this.userProfileForm.get('address')?.value;
+            // this.registerDto.phone_number = this.userProfileForm.get('phone_number')?.value;
+            // this.registerDto.avatar = this.avatar;
+            // this.registerDto.retype_password = this.registerDto.password;
+
+          }
+        })
+
+      }
+
     }
 }
