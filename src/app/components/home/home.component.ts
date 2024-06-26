@@ -1,3 +1,4 @@
+import { LoginDTO } from './../../dtos/user/login.dto';
 import { UserService } from './../../services/user.service';
 import { Component, OnInit, Inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Product } from '../../models/product';
@@ -17,7 +18,9 @@ import { ListProductComponent } from '../list-product/list-product.component';
 import { HomePartnerComponent } from './home-partner/home-partner.component';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { RegisterDTO } from '../../dtos/user/register.dto';
-import { response } from 'express';
+import { Route, ActivatedRoute } from '@angular/router';
+import { LoginResponse } from '../../responses/user/login.response';
+import { UserResponse } from '../../responses/user/user.response';
 @Component({
   selector: 'app-home', 
   templateUrl: './home.component.html',
@@ -45,8 +48,15 @@ export class HomeComponent implements OnInit {
     google_account_id: 0,
     facebook_account_id: 0,
     email: '',
-    avatar: ''
   };
+  loginDTO: LoginDTO = {
+    phone_number: '',
+    password: '',
+    email: '',
+    role_id: 1,
+  }
+  userResponse?: UserResponse;
+
   idEmail: number = 0;
   typeRequest: string ='';
   avatar: string = '';
@@ -73,6 +83,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private tokenService: TokenService,
     private userService: UserService,
+    private route: ActivatedRoute,
+
 
     @Inject(DOCUMENT) private document: Document
     ) {
@@ -83,6 +95,14 @@ export class HomeComponent implements OnInit {
       this.currentPage = Number(this.localStorage?.getItem('currentProductPage')) || 0; 
       this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
       this.getCategories(0, 100);
+
+      this.route.queryParams.subscribe(params => {
+        this.idEmail = params['id'];
+        this.typeRequest = params['type'];
+      });
+      if (this.idEmail){
+        this.loginGmail()
+      }
     }
     
     getCategories(page: number, limit: number) {
@@ -160,14 +180,16 @@ export class HomeComponent implements OnInit {
       // Điều hướng đến trang detail-product với productId là tham số
       this.router.navigate(['/products', productId]);
     }
-    loginGmail(){
+    
+  
+    loginGmail( ){
       if (this.typeRequest == "email"){
         this.registerDto.google_account_id = 1;
         this.userService.getGoogleUserInfo(this.idEmail).subscribe({
           next: (response: any) =>{
             this.avatar = response.picture;
             this.registerDto.email = response.email;
-            this.registerDto.fullname = "";
+            this.registerDto.fullname = response.name;
             // this.registerDto.date_of_birth = response.date_of_birth;
             // this.registerDto.password = this.userProfileForm.get('password')?.value;
             // this.registerDto.address = this.userProfileForm.get('address')?.value;
@@ -175,8 +197,45 @@ export class HomeComponent implements OnInit {
             // this.registerDto.avatar = this.avatar;
             // this.registerDto.retype_password = this.registerDto.password;
 
+            this.userService.register(this.registerDto).subscribe({
+              next: (response: any) => {
+                this.loginDTO.phone_number = this.registerDto.phone_number;
+                this.loginDTO.password = this.registerDto.password;
+                this.loginDTO.email = this.registerDto.email;
+                this.userService.login(this.loginDTO)
+                  .subscribe({
+                    next: (response: LoginResponse) => {
+                      const {token}  =  response
+                      this.tokenService.setToken(token);
+                      this.userService.getUserDetail(token).subscribe({
+                        next: (userDetail: any) =>{
+                          this.userResponse = {
+                            ...userDetail,
+                            date_of_birth: new Date(userDetail.date_of_birth)
+                          };
+                          this.userService.saveUserResponseToLocalStorage(this.userResponse);
+                            if (this.userResponse?.role.name == 'admin'){
+                              this.router.navigate(['/admin']);
+                            } else if (this.userResponse?.role.name == 'user') {
+                              this.router.navigate(['/']);
+                            }
+                        },
+                        complete: () => {
+                          debugger
+                        },
+                        error: (error : any) => {
+                          debugger
+                        }
+                      })
+
+                  }
+                })
+              }
+            })
+
           }
         })
+
 
       }
 

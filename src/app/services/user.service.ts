@@ -39,7 +39,7 @@ export class UserService {
     return this.http.post<ApiResponse>(this.apiRegister, registerDTO, this.apiConfig);
   }
 
-  login(loginDTO: LoginDTO): Observable<ApiResponse> {    
+  login(loginDTO: LoginDTO): Observable<any> {    
     return this.http.post<ApiResponse>(this.apiLogin, loginDTO, this.apiConfig);
   }
   getUserDetail(token: string): Observable<ApiResponse> {

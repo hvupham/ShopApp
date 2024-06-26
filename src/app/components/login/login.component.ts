@@ -88,7 +88,8 @@ export class LoginComponent implements OnInit{
     const loginDTO: LoginDTO = {
       phone_number: this.phoneNumber,
       password: this.password,
-      role_id: this.selectedRole?.id ?? 1
+      role_id: this.selectedRole?.id ?? 1,
+      email: ""
     };
     this.userService.login(loginDTO).subscribe({
       next: (apiResponse: ApiResponse) => {
