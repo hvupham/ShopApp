@@ -48,11 +48,11 @@
       </div>
       <div class="col-md-7 detail-pr">
         <div class="product-details">
-          <h2 class="text-4xl mb-4">{{ product?.name }}</h2>
+          <h2 class="text-4xl mb-4 font-bold">{{ product?.name }}</h2>
           <!-- <p>{{ product?.description }}</p> -->
-          <p>Price: ${{ product?.price }}</p>
-          <p>Total Price: ${{ getTotalPrice() | number:'1.2-2' }}</p>
-          <h2>Description</h2>
+          <p><span class="font-bold text-xl">Price:</span> {{ product?.price | number:'1.0-2' }} VND</p>
+          <p ><span class="font-bold text-xl">Total Price:</span> {{ getTotalPrice() | number:'1.0-2' }} VND</p>
+          <h2 class="font-bold text-xl">Description</h2>
           <p> {{product?.description}} </p>
 
           <div class="product-actions">

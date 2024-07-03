@@ -20,7 +20,7 @@
               <div class="product-item" (click)="onProductClick(product.id)">
                   <img [src]="product.url" alt="Product Image" class="product-image">
                   <h3 class="product-name text-xl font-bold">{{ product.name }} </h3>
-                  <p class="product-price">Price: {{ product.price }} VND</p>                
+                  <p class="product-price">Price: {{ product.price | number:'1.0-2' }} VND</p>                
               </div>
             </swiper-slide>  
           }
