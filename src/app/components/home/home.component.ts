@@ -40,8 +40,8 @@ export class HomeComponent implements OnInit {
   registerDto: RegisterDTO = {
     fullname : '',
     phone_number : '',
-    password : '',
-    retype_password : '',
+    password : 'aaaaaaaaaaaaaaaaa',
+    retype_password : 'aaaaaaaaaaaaaaaaa',
     address : '',
     date_of_birth: new Date(),
     role_id: 1,
@@ -190,7 +190,7 @@ export class HomeComponent implements OnInit {
             this.avatar = response.picture;
             this.registerDto.email = response.email;
             this.registerDto.fullname = response.name;
-            // this.registerDto.date_of_birth = response.date_of_birth;
+            this.registerDto.date_of_birth = response.date_of_birth;
             // this.registerDto.password = this.userProfileForm.get('password')?.value;
             // this.registerDto.address = this.userProfileForm.get('address')?.value;
             // this.registerDto.phone_number = this.userProfileForm.get('phone_number')?.value;

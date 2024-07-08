@@ -18,7 +18,9 @@ export class UserService {
   private apiRegister = `${environment.apiBaseUrl}/users/register`;
   private apiLogin = `${environment.apiBaseUrl}/users/login`;
   private apiUserDetail = `${environment.apiBaseUrl}/users/details`;
-  private apiLoginGoogle = `${environment.apiBaseUrl}/emails`;
+  private apiLoginGoogle = `${environment.apiBaseUrl}/comments/emails`;
+  private apiContainPhoneNumber = `${environment.apiBaseUrl}/users/phone/`;
+
 
   private http = inject(HttpClient);
   private httpUtilService = inject(HttpUtilService);  
@@ -119,4 +121,8 @@ export class UserService {
   getGoogleUserInfo(id: number): Observable<any>{
     return this.http.get<any>(`${this.apiLoginGoogle}/${id}`)
   }
+  getUserByPhoneNumber(phone_number: string): Observable<any> {
+    return this.http.get(this.apiContainPhoneNumber + phone_number);
+  }
+  
 }

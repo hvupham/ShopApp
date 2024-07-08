@@ -16,7 +16,7 @@ import { AdminGuardFn } from './guards/admin.guard';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { MyOrderedComponent } from './components/my-ordered/my-ordered.component';
 //import { OrderAdminComponent } from './components/admin/order/order.admin.component';
-
+import { UpdateUserComponent } from './components/user-profile/update-user/update.profile.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },  
@@ -28,6 +28,8 @@ export const routes: Routes = [
   { path: 'categories', component: CategoriesComponent},
   { path: 'my-ordered', component: MyOrderedComponent, canActivate:[AuthGuardFn] },
   { path: 'my-ordered/:id', component: OrderDetailComponent, canActivate:[AuthGuardFn] },
+  { path: 'users/update', component: UpdateUserComponent },
+
 
 
   //Admin   
