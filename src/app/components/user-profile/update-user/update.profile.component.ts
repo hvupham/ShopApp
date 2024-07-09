@@ -99,12 +99,70 @@ export class UpdateUserComponent implements OnInit{
       this.idEmail = params['id'];
       this.typeRequest = params['type'];
     });
+    this.existingUser();
   }
   existingUser(){
-    this.userService.getUserByPhoneNumber(this.loginDTO.phone_number).subscribe({
-      next: (response: any) =>{
-        if (response.status=='success'){
-          this.checkExistPhoneNumber = true;
+    this.userService.existingUser(this.idEmail).subscribe({
+      next: (response: ApiResponse) =>{
+        if (response.data){
+          this.userService.getGoogleUserInfo(this.idEmail).subscribe({
+            next: (response: any) =>{
+              debugger;
+              this.loginDTO.email = response.email;
+              this.loginDTO.phone_number = "1";
+              this.loginDTO.password = "1"
+          
+              this.userService.login(this.loginDTO)
+                    .subscribe({
+                        
+                        next: (apiResponse: ApiResponse) => {
+                          debugger;
+                          const { token } = apiResponse.data;
+                          if (this.rememberMe) {          
+                            this.tokenService.setToken(token);
+                            debugger;
+                            this.userService.getUserDetail(token).subscribe({
+                              next: (apiResponse2: ApiResponse) => {
+                                debugger
+                                this.userResponse = {
+                                  ...apiResponse2.data,
+                                  date_of_birth: new Date(apiResponse2.data.date_of_birth),
+                                };    
+                                this.userService.saveUserResponseToLocalStorage(this.userResponse); 
+                                if(this.userResponse?.role.name == 'admin') {
+                                  this.router.navigate(['/admin']);    
+                                } else if(this.userResponse?.role.name == 'user') {
+                                  this.router.navigate(['/']);                      
+                                }
+                                
+                              },
+                              complete: () => {
+                                this.cartService.refreshCart();
+                                debugger;
+                              },
+                              error: (error: HttpErrorResponse) => {
+                                debugger;
+                                console.error(error?.error?.message ?? '');
+                              } 
+                            })
+                          }                        
+                        },
+                        complete: () => {
+                          debugger
+                        },
+                        error: (error : any) => {
+                          debugger
+                        }
+                      }
+                    );
+            },
+            complete: () =>{
+              debugger;
+            },
+            error: (error: any) => {
+              console.log("Error fetching data error: "+error.error.message);
+            }
+          })
         } else {
           this.checkExistPhoneNumber = false;
         }

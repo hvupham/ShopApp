@@ -124,5 +124,9 @@ export class UserService {
   getUserByPhoneNumber(phone_number: string): Observable<any> {
     return this.http.get(this.apiContainPhoneNumber + phone_number);
   }
+  existingUser(id:number){
+    return this.http.get<ApiResponse>(`${environment.apiBaseUrl}/users/existingUser?gg_id=${id}`);
+  }
+
   
 }
