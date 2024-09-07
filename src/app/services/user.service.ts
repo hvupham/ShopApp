@@ -10,6 +10,7 @@ import { UpdateUserDTO } from '../dtos/user/update.user.dto';
 import { DOCUMENT } from '@angular/common';
 import { inject } from '@angular/core';
 import { ApiResponse } from '../responses/api.response';
+import { LoginResponse } from '../responses/user/login.response';
 
 @Injectable({
   providedIn: 'root'
@@ -42,10 +43,13 @@ export class UserService {
   }
 
   login(loginDTO: LoginDTO): Observable<any> {    
-    return this.http.post<ApiResponse>(this.apiLogin, loginDTO, this.apiConfig);
+    return this.http.post<ApiResponse>(`${environment.apiBaseUrl}/users/login`, loginDTO, this.apiConfig);
+  }
+  loginGG(loginDTO: LoginDTO): Observable<any> {    
+    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/users/login/oauth2?email=${loginDTO.email}`, this.apiConfig);
   }
   getUserDetail(token: string): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.apiUserDetail, {
+    return this.http.post<any>(`${environment.apiBaseUrl}/users/details`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`

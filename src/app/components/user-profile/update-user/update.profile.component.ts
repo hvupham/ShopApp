@@ -104,25 +104,30 @@ export class UpdateUserComponent implements OnInit{
   existingUser(){
     this.userService.existingUser(this.idEmail).subscribe({
       next: (response: ApiResponse) =>{
+        console.log(response.data);
         if (response.data){
           this.userService.getGoogleUserInfo(this.idEmail).subscribe({
+
             next: (response: any) =>{
+              console.log(response.data.email)
               debugger;
-              this.loginDTO.email = response.email;
-              this.loginDTO.phone_number = "1";
-              this.loginDTO.password = "1"
-          
-              this.userService.login(this.loginDTO)
+              this.loginDTO.email = response.data.email;
+              this.loginDTO.phone_number = "1111111111";
+              this.loginDTO.password = "123456789"
+              console.log(this.loginDTO.email)
+              this.userService.loginGG(this.loginDTO)
                     .subscribe({
-                        
-                        next: (apiResponse: ApiResponse) => {
+                        next: (apiResponse: LoginResponse) => {
                           debugger;
-                          const { token } = apiResponse.data;
+                          const { token } = apiResponse;
+                          console.log(token)
+
                           if (this.rememberMe) {          
-                            this.tokenService.setToken(token);
+                            this.tokenService.setToken(apiResponse.token);
                             debugger;
-                            this.userService.getUserDetail(token).subscribe({
-                              next: (apiResponse2: ApiResponse) => {
+                            this.userService.getUserDetail(apiResponse.token).subscribe({
+                              next: (apiResponse2: any) => {
+                                console.log(apiResponse2)
                                 debugger
                                 this.userResponse = {
                                   ...apiResponse2.data,

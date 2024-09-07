@@ -160,7 +160,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^17.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@17.3.5":
+"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^17.0.0", "@angular/common@^18.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@17.3.5":
   version "17.3.5"
   resolved "https://registry.npmjs.org/@angular/common/-/common-17.3.5.tgz"
   integrity sha512-Ox91WxSnOSrQ6I21cHi69EfT2Pxtd5Knb5AsdwpxqE57V2E7EnWMhb+LP+holCtFUhK529EGXCk788M+Elyw6g==
@@ -188,7 +188,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^17.0.0", "@angular/core@>=16.0.0", "@angular/core@17.3.5":
+"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^17.0.0", "@angular/core@^18.0.0", "@angular/core@>=16.0.0", "@angular/core@17.3.5":
   version "17.3.5"
   resolved "https://registry.npmjs.org/@angular/core/-/core-17.3.5.tgz"
   integrity sha512-y6P27lcrKy3yMx/rtMuGsAnDyVEsS3BdyArTXcD0TOImVGHhVIaB0L95DUCam3ajTe2f2x39eozJZDh7QSpJaw==
@@ -2114,6 +2114,13 @@
   version "17.3.5"
   resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-17.3.5.tgz"
   integrity sha512-0heI0yHUckdGI8uywu/wkp24KR/tdYMKYJOaYIU+9JydyN1zJRpbR7x0thddl7+k/zu2ZGbfFdv1779Ecw/xdA==
+
+"@ngx-pwa/local-storage@^18.0.0":
+  version "18.0.0"
+  resolved "https://registry.npmjs.org/@ngx-pwa/local-storage/-/local-storage-18.0.0.tgz"
+  integrity sha512-Lmcd0uHayDoO1I5UbwsoVKSlx7aEF86k2amb8dbdF5z0SRKhRN5p7sIXQy6DjC0mkLFBpjYOOzq6kQrqX1kW7Q==
+  dependencies:
+    tslib "^2.5.0"
 
 "@ngx-translate/core@^15.0.0", "@ngx-translate/core@>=15.0.0":
   version "15.0.0"
@@ -6353,7 +6360,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.5 || ^7.4.0", rxjs@^7.8.1, rxjs@~7.8.0, rxjs@7.8.1:
+"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.5 || ^7.4.0", rxjs@^7.6.0, rxjs@^7.8.1, rxjs@~7.8.0, rxjs@7.8.1:
   version "7.8.1"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
@@ -7034,7 +7041,7 @@ tree-kill@1.2.2:
   resolved "https://registry.npmjs.org/tree-kill/-/tree-kill-1.2.2.tgz"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@2.6.2:
+tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.5.0, tslib@2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
