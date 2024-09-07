@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { ApiResponse } from '../responses/api.response';
-
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,8 +18,12 @@ export class CommentService {
   }
 
   insertComment(insertCommentDTO:InsertCommentDTO):Observable<ApiResponse>{
-
-    return this.http.post<ApiResponse>(`${this.apiBaseUrl}/comments`, insertCommentDTO);
+    const token = localStorage.getItem('access_token');
+    console.log(token);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.post<ApiResponse>(`${this.apiBaseUrl}/comments`, insertCommentDTO, {headers: headers});
   }
 
 }

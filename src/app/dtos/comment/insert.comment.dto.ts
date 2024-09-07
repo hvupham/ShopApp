@@ -6,7 +6,7 @@ import {
 
 export class InsertCommentDTO {
     @IsNotEmpty()
-    productId: number;
+    product_id: number;
 
     @IsString()
     @IsNotEmpty()
@@ -14,11 +14,11 @@ export class InsertCommentDTO {
 
 
 
-    userId: number;
+    user_id: number;
     
     constructor(data: any) {
-        this.productId = data.productId;
+        this.product_id = data.productId;
         this.content = data.content;
-        this.userId = data.user.id;
+        this.user_id = data.user.id;
     }
 }

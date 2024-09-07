@@ -20,6 +20,7 @@ import { CommentService } from './../../services/comment.service';
 import { InsertCommentDTO } from './../../dtos/comment/insert.comment.dto';
 import { ApiResponse } from './../../responses/api.response';
 import { environment } from '../../../environments/environment.development';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
@@ -32,22 +33,23 @@ import { environment } from '../../../environments/environment.development';
     ListProductComponent,
     MatProgressBarModule,
     FooterComponent,
+    FormsModule
   ]
 })
 export class DetailProductComponent implements OnInit {
   product?: Product;
   category?: Category;
   comments: Comment[] = [];
-  productId: number = 0;
+  product_id: number = 0;
   currentImageIndex: number = 0;
   quantity: number = 1;
   isPressedAddToCart: boolean = false;
   userResponse: any = {};
 
   insertCommentDTO: InsertCommentDTO = {
-    productId: 0,
+    product_id: 0,
     content: '',
-    userId: 0,
+    user_id: 0,
   };
   
 
@@ -66,26 +68,25 @@ export class DetailProductComponent implements OnInit {
       const userResponseString = localStorage.getItem('user');
       if (userResponseString) {
         this.userResponse = JSON.parse(userResponseString);
-        this.insertCommentDTO.userId = this.userResponse.userId;
+        console.log(this.userResponse.id)
+        this.insertCommentDTO.user_id = this.userResponse.id;
+        console.log(this.insertCommentDTO);
       }
     }
 
     const idParam = this.activatedRoute.snapshot.paramMap.get('id');
     if (idParam !== null && !isNaN(+idParam)) {
-      this.productId = +idParam;
-      this.insertCommentDTO.productId = this.productId;
+      this.product_id = +idParam;
+      this.insertCommentDTO.product_id = this.product_id;
 
-      this.productService.getDetailProduct(this.productId).subscribe({
+      this.productService.getDetailProduct(this.product_id).subscribe({
         next: (apiResponse: ApiResponse) => {
           const response = apiResponse.data;
           if (response.product_images && response.product_images.length > 0) {
             response.product_images.forEach((product_image: ProductImage) => {
-              console.log(product_image.image_url)
               if (!product_image.image_url.startsWith('http')) {
                 product_image.image_url = `${environment.apiBaseUrl}/products/images/${product_image.image_url}`;
               }
-              // product_image.image_url = `${environment.apiBaseUrl}/products/images/${product_image.image_url}`;
-              console.log(product_image.image_url)
 
             });
           }
@@ -97,7 +98,7 @@ export class DetailProductComponent implements OnInit {
         }
       });
     } else {
-      console.error('Invalid productId:', idParam);
+      console.error('Invalid product_id:', idParam);
     }
   }
 
@@ -151,8 +152,8 @@ export class DetailProductComponent implements OnInit {
     this.router.navigate(['/orders']);
   }
 
-  getAllCommentByProduct(productId: number) {
-    this.commentService.getAllcommentsByProduct(productId).subscribe({
+  getAllCommentByProduct(product_id: number) {
+    this.commentService.getAllcommentsByProduct(product_id).subscribe({
       next: (apiResponse: ApiResponse) => {
         this.comments = apiResponse.data;
       },
@@ -162,13 +163,23 @@ export class DetailProductComponent implements OnInit {
     });
   }
   insertComment() {
-    this.commentService.insertComment(this.insertCommentDTO).subscribe({
-      next: () => {
-        console.log("Insert comment successfully");
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error(error?.error?.message ?? '');
-      }
-    });
+    console.log(this.insertCommentDTO);
+    const token = localStorage.getItem('token');
+    console.log(token);
+    if (this.insertCommentDTO.content.trim() !== '') {
+      console.log('Comment content:', this.insertCommentDTO.content);
+      
+      // Gọi API để thêm comment
+      this.commentService.insertComment(this.insertCommentDTO).subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error: HttpErrorResponse) => {
+          console.error('Error adding comment:', error.message);
+        }
+      });
+    } else {
+      console.log('Comment cannot be empty.');
+    }
   }
 }
