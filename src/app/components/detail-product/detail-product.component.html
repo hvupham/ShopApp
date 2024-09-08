@@ -3,8 +3,6 @@
     <div class="intro-section">
 
     </div>    
-    <!-- <h1 style="color: rebeccapurple;">HELLLLL</h1> -->
-
     <div class="row">
       <div class="col-md-5">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -76,27 +74,17 @@
           <div class="row gx-5">
             <div class="content">
               <div class="col-md-7">
-                  <div>
-                                  
-                    <div class="box-comment">
-                      @if (product?.comments){
-                        @for(cmt of product?.comments;
-                        track  cmt.id;let i = $index;) {
-                          <p style="font-weight: bold;">{{cmt.user.fullname}} </p>
-                          <p>{{cmt.content}} </p>
-                          <div class="star">
-                              <i class="fas fa-star text-warning"></i>
-                              <i class="fas fa-star text-warning"></i>
-                              <i class="fas fa-star text-warning"></i>
-                              <i class="fas fa-star text-warning"></i>
-                              <i class="fas fa-star text-warning"></i>
-                          </div>
-                        }   
-
-                      }
+                <div>               
+                  <div class="box-comment">
+                    <div *ngIf="comments" class="comment-container">
+                      <div *ngFor="let cmt of comments; trackBy: trackByCommentId; let i = index;">
+                        <p style="font-weight: bold;">{{cmt.user.fullname}}</p>
+                        <p>{{cmt.content}}</p>
+                      </div>
                     </div>
-                      
-                  </div>
+                  </div>                  
+                </div>
+                
                   <!-- phần thêm comment -->
                   <div #Comment></div>
                   <div class="form-group mt-5">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Product } from '../../models/product';
@@ -60,7 +60,8 @@ export class DetailProductComponent implements OnInit {
     private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -78,7 +79,6 @@ export class DetailProductComponent implements OnInit {
     if (idParam !== null && !isNaN(+idParam)) {
       this.product_id = +idParam;
       this.insertCommentDTO.product_id = this.product_id;
-
       this.productService.getDetailProduct(this.product_id).subscribe({
         next: (apiResponse: ApiResponse) => {
           const response = apiResponse.data;
@@ -92,6 +92,8 @@ export class DetailProductComponent implements OnInit {
           }
           this.product = response;
           this.showImage(0);
+          this.getAllCommentByProduct(this.product_id);
+
         },
         error: (error: HttpErrorResponse) => {
           console.error(error?.error?.message ?? '');
@@ -156,6 +158,7 @@ export class DetailProductComponent implements OnInit {
     this.commentService.getAllcommentsByProduct(product_id).subscribe({
       next: (apiResponse: ApiResponse) => {
         this.comments = apiResponse.data;
+        console.log(this.comments);
       },
       error: (error: HttpErrorResponse) => {
         console.error(error?.error?.message ?? '');
@@ -164,15 +167,13 @@ export class DetailProductComponent implements OnInit {
   }
   insertComment() {
     console.log(this.insertCommentDTO);
-    const token = localStorage.getItem('token');
-    console.log(token);
     if (this.insertCommentDTO.content.trim() !== '') {
       console.log('Comment content:', this.insertCommentDTO.content);
-      
-      // Gọi API để thêm comment
       this.commentService.insertComment(this.insertCommentDTO).subscribe({
         next: (response) => {
-          console.log(response);
+          this.getAllCommentByProduct(this.product_id);
+          this.insertCommentDTO.content = '';
+
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error adding comment:', error.message);
@@ -182,4 +183,9 @@ export class DetailProductComponent implements OnInit {
       console.log('Comment cannot be empty.');
     }
   }
+  trackByCommentId(index: number, comment: any): number {
+    return comment.id;
+  }
+  
+  
 }

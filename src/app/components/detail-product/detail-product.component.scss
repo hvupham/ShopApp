@@ -107,3 +107,17 @@ outline: none;
     width: 80%;
     border-radius: 10px;
 }   
+.box-comment {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.comment-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
