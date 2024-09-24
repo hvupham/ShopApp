@@ -4,10 +4,7 @@ import { Router } from '@angular/router';
 import { UserResponse } from '../../responses/user/user.response';
 import { TokenService } from '../../services/token.service';
 import {RouterModule} from "@angular/router";
-import { adminRoutes } from './admin-routes';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { provideRouter } from '@angular/router';
 import { inject } from '@angular/core';
 
 @Component({
@@ -22,8 +19,6 @@ import { inject } from '@angular/core';
     RouterModule,
     //FormsModule
   ],
-  
-  
 })
 export class AdminComponent implements OnInit {
   //adminComponent: string = 'orders';

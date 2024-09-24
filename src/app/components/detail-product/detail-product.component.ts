@@ -51,6 +51,17 @@ export class DetailProductComponent implements OnInit {
     content: '',
     user_id: 0,
   };
+  ratingStats = {
+    averageRating: 4.2,
+    totalReviews: 1001,
+    ratingsDistribution: [
+      { star: 5, percentage: 53 },
+      { star: 4, percentage: 29 },
+      { star: 3, percentage: 9 },
+      { star: 2, percentage: 4 },
+      { star: 1, percentage: 6 },
+    ]
+  };
   
 
   constructor(
@@ -102,6 +113,9 @@ export class DetailProductComponent implements OnInit {
     } else {
       console.error('Invalid product_id:', idParam);
     }
+  }
+  trackByImageUrl(index: number, item: { image_url: string }): string {
+    return item.image_url;
   }
 
   showImage(index: number): void {

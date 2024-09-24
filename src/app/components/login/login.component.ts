@@ -93,14 +93,11 @@ export class LoginComponent implements OnInit{
     };
     this.userService.login(loginDTO).subscribe({
       next: (apiResponse: ApiResponse) => {
-        debugger;
         const { token } = apiResponse.data;
         if (this.rememberMe) {          
           this.tokenService.setToken(token);
-          debugger;
           this.userService.getUserDetail(token).subscribe({
             next: (apiResponse2: ApiResponse) => {
-              debugger
               this.userResponse = {
                 ...apiResponse2.data,
                 date_of_birth: new Date(apiResponse2.data.date_of_birth),
@@ -115,20 +112,16 @@ export class LoginComponent implements OnInit{
             },
             complete: () => {
               this.cartService.refreshCart();
-              debugger;
             },
             error: (error: HttpErrorResponse) => {
-              debugger;
               console.error(error?.error?.message ?? '');
             } 
           })
         }                        
       },
       complete: () => {
-        debugger;
       },
       error: (error: HttpErrorResponse) => {
-        debugger;
         console.error(error?.error?.message ?? '');
       } 
     });
@@ -137,7 +130,6 @@ export class LoginComponent implements OnInit{
     this.showPassword = !this.showPassword;
   }
   continueWithGoogle(){
-    debugger;
     window.location.href = "http://localhost:8088/oauth2/authorization/google";
 
   }
