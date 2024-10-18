@@ -1,26 +1,26 @@
-import { LoginDTO } from './../../dtos/user/login.dto';
-import { UserService } from './../../services/user.service';
-import { Component, OnInit, Inject, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Product } from '../../models/product';
-import { Category } from '../../models/category';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Category } from '../../models/category';
+import { Product } from '../../models/product';
+import { ApiResponse } from '../../responses/api.response';
 import { CategoryService } from '../../services/category.service';
 import { ProductService } from '../../services/product.service';
 import { TokenService } from '../../services/token.service';
-import { ApiResponse } from '../../responses/api.response';
+import { LoginDTO } from './../../dtos/user/login.dto';
+import { UserService } from './../../services/user.service';
 
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ListProductComponent } from '../list-product/list-product.component';
-import { HomePartnerComponent } from './home-partner/home-partner.component';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { RegisterDTO } from '../../dtos/user/register.dto';
-import { Route, ActivatedRoute } from '@angular/router';
 import { LoginResponse } from '../../responses/user/login.response';
 import { UserResponse } from '../../responses/user/user.response';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { ListProductComponent } from '../list-product/list-product.component';
+import { HomePartnerComponent } from './home-partner/home-partner.component';
 @Component({
   selector: 'app-home', 
   templateUrl: './home.component.html',

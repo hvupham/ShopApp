@@ -1,23 +1,21 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { LoginDTO } from '../../dtos/user/login.dto';
-import { UserService } from '../../services/user.service';
-import { TokenService } from '../../services/token.service';
-import { RoleService } from '../../services/role.service'; // Import RoleService
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoginResponse } from '../../responses/user/login.response';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginDTO } from '../../dtos/user/login.dto';
 import { Role } from '../../models/role'; // Đường dẫn đến model Role
 import { UserResponse } from '../../responses/user/user.response';
 import { CartService } from '../../services/cart.service';
+import { RoleService } from '../../services/role.service'; // Import RoleService
+import { TokenService } from '../../services/token.service';
+import { UserService } from '../../services/user.service';
 
-import { HeaderComponent } from '../header/header.component';
-import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ApiResponse } from '../../responses/api.response';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
 
-import { environment } from '../../../environments/environment.development';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,14 +35,12 @@ export class LoginComponent implements OnInit{
   password: string = '123456789';
   showPassword: boolean = false;
 
-  roles: Role[] = []; // Mảng roles
+  roles: Role[] = []; 
   rememberMe: boolean = true;
-  selectedRole: Role | undefined; // Biến để lưu giá trị được chọn từ dropdown
+  selectedRole: Role | undefined; 
   userResponse?: UserResponse
-
   onPhoneNumberChange() {
     console.log(`Phone typed: ${this.phoneNumber}`);
-    //how to validate ? phone must be at least 6 characters
   }
   constructor(
     private router: Router,

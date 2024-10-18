@@ -97,13 +97,6 @@ export class ListProductComponent {
       });    
     }
     
-    // onPageChange(page: number) {
-    //   debugger;
-    //   this.currentPage = page < 0 ? 0 : page;
-    //   this.localStorage?.setItem('currentProductPage', String(this.currentPage)); 
-    //   this.getProducts(this.keyword, this.selectedCategoryId, this.currentPage, this.itemsPerPage);
-    // }
-    
     generateVisiblePageArray(currentPage: number, totalPages: number): number[] {
       const maxVisiblePages = 5;
       const halfVisiblePages = Math.floor(maxVisiblePages / 2);

@@ -6,3 +6,11 @@
 
 
 @import "tailwindcss/utilities";
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: linear-gradient(rgb(185, 186, 194), rgb(36, 26, 73));
+    color: black !important;
+}
