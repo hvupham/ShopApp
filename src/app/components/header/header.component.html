@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -69,4 +69,89 @@
             </div>
         </div>
     </nav>
-</header>
+</header> -->
+
+<nav>
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <i class="fa-solid fa-house text-2xl text-gray-700 dark:text-white"></i>
+    </a>
+    <button data-collapse-toggle="navbar-solid-bg" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-solid-bg" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+    <div class="hidden w-full md:block md:w-auto" id="navbar-solid-bg">
+      <ul class="flex flex-col align-middle  font-medium mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">
+        <!-- Home Link -->
+        <li>
+          <a class="block  "
+             [ngClass]="{ 'active': activeNavItem === 0 }"
+             (click)="setActiveNavItem(0)"
+             routerLink="/">
+             Home
+          </a>
+        </li>
+        
+        <!-- Notification Icon -->
+        <li>
+          <a class="block  "
+             [ngClass]="{ 'active': activeNavItem === 1 }"
+             (click)="setActiveNavItem(1)"
+             routerLink="/">
+             <i class="fa-solid fa-bell"></i>
+          </a>
+        </li>
+
+        <!-- Cart Icon and Link -->
+        <li>
+          <a class="block  "
+             [ngClass]="{ 'active': activeNavItem === 2 }"
+             (click)="setActiveNavItem(2)"
+             routerLink="/orders">
+             <i class="fas fa-shopping-cart icon"></i> Cart
+          </a>
+        </li>
+
+        <!-- User Profile or Login -->
+        <li>
+          @if(userResponse) {
+            <ng-container>
+              <ng-container
+                ngbPopover="Tài khoản của tôi,Đơn mua,Đăng xuất"
+                popoverTitle="User Actions"
+                triggers="click"
+                [placement]="'bottom'"
+              >
+                <a
+                  class="nav-link block  "                              
+                  [ngbPopover]="popoverContent"
+                  (click)="togglePopover($event)"
+                >
+                <i class="fa-solid fa-user"></i>
+                  <!-- {{ userResponse.fullname }} -->
+                </a>
+                <ng-template #popoverContent>
+                  <div class="popover-list">
+                    <a class="popover-item" 
+                        (click)="handleItemClick(0)">My account</a>
+                    <a class="popover-item" 
+                        (click)="handleItemClick(1)">Order</a>
+                    <a class="popover-item" 
+                        (click)="handleItemClick(2)">Log out</a>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          } @else {
+            <ng-container>
+              <a class="nav-link block  " routerLink="/login">Login</a>
+            </ng-container>
+          }     
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<hr>

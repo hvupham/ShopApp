@@ -76,3 +76,12 @@ header {
     color: $shopapp-color;  
     cursor: pointer;  
 }
+li {
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0 20px;
+}

@@ -1,6 +1,6 @@
 
 <div class="list-product">
-    <div class="container">
+    <div class="container flex flex-col">
       @for(category of categories; track category.id){
         @if(category.id == categoryId){
           <h2 class="title">{{category.name}}</h2>
@@ -20,7 +20,9 @@
               <div class="product-item" (click)="onProductClick(product.id)">
                   <img [src]="product.url" alt="Product Image" class="product-image">
                   <h3 class="product-name text-xl font-bold">{{ product.name }} </h3>
-                  <p class="product-price">Price: {{ product.price | number:'1.0-2' }} VND</p>                
+                  <div class="product-price absolute left-2 bottom-2 w-full p-4 mb-2">
+                    <p>{{ product.price | number:'1.0-2' }} VND</p>
+                  </div>                
               </div>
             </swiper-slide>  
           }

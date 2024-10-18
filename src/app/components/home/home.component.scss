@@ -2,7 +2,7 @@
 
 .intro-section {
     text-align: center;
-    color: white;
+    // color: black;
     padding: 20px;
 }
 
@@ -27,31 +27,11 @@
     width: 300px;
     background-color: $shopapp-background-color;
     margin-right: 10px;
-    border-color: rgba(255, 255, 255, 0.5);
-    color: white;
+    border-color: rgba(12, 12, 12, 0.5);
+    color: black;
 }
 
-.form-control {
-    background-color: transparent;
-    color: white;
-}
 
-.form-control::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: rgba(255, 255, 255, 0.5);
-    opacity: 1;
-    /* Firefox */
-}
-
-.form-control:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.form-control::-ms-input-placeholder {
-    /* Microsoft Edge */
-    color: rgba(255, 255, 255, 0.5);
-}
 
 .product-item {
     background-color: $shopapp-background-color;
