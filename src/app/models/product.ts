@@ -9,7 +9,10 @@ export interface Product {
   category_id: number;
   url: string;
   product_images: ProductImage[];
+  color: string;
   comments: Comment[];
+  discountPersent: String;
+
 }
 
   

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Product } from '../../models/product';
@@ -21,6 +21,7 @@ import { InsertCommentDTO } from './../../dtos/comment/insert.comment.dto';
 import { ApiResponse } from './../../responses/api.response';
 import { environment } from '../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-detail-product',
   templateUrl: './detail-product.component.html',
@@ -34,7 +35,9 @@ import { FormsModule } from '@angular/forms';
     MatProgressBarModule,
     FooterComponent,
     FormsModule
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class DetailProductComponent implements OnInit {
   product?: Product;
@@ -67,12 +70,10 @@ export class DetailProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private cartService: CartService,
-    private categoryService: CategoryService,
     private commentService: CommentService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -80,9 +81,7 @@ export class DetailProductComponent implements OnInit {
       const userResponseString = localStorage.getItem('user');
       if (userResponseString) {
         this.userResponse = JSON.parse(userResponseString);
-        console.log(this.userResponse.id)
         this.insertCommentDTO.user_id = this.userResponse.id;
-        console.log(this.insertCommentDTO);
       }
     }
 
@@ -90,29 +89,35 @@ export class DetailProductComponent implements OnInit {
     if (idParam !== null && !isNaN(+idParam)) {
       this.product_id = +idParam;
       this.insertCommentDTO.product_id = this.product_id;
-      this.productService.getDetailProduct(this.product_id).subscribe({
-        next: (apiResponse: ApiResponse) => {
-          const response = apiResponse.data;
-          if (response.product_images && response.product_images.length > 0) {
-            response.product_images.forEach((product_image: ProductImage) => {
-              if (!product_image.image_url.startsWith('http')) {
-                product_image.image_url = `${environment.apiBaseUrl}/products/images/${product_image.image_url}`;
-              }
-
-            });
-          }
-          this.product = response;
-          this.showImage(0);
-          this.getAllCommentByProduct(this.product_id);
-
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error(error?.error?.message ?? '');
-        }
-      });
+      this.getProductDetail();
+      
     } else {
       console.error('Invalid product_id:', idParam);
     }
+
+  }
+  getProductDetail(){
+    this.productService.getDetailProduct(this.product_id).subscribe({
+      next: (apiResponse: ApiResponse) => {
+        const response = apiResponse.data;
+        console.log(response);
+        if (response.product_images && response.product_images.length > 0) {
+          response.product_images.forEach((product_image: ProductImage) => {
+            if (!product_image.image_url.startsWith('http')) {
+              product_image.image_url = `${environment.apiBaseUrl}/products/images/${product_image.image_url}`;
+            }
+
+          });
+        }
+        this.product = response;
+        this.showImage(0);
+        this.getAllCommentByProduct(this.product_id);
+
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error?.error?.message ?? '');
+      }
+    });
   }
   trackByImageUrl(index: number, item: { image_url: string }): string {
     return item.image_url;
@@ -172,7 +177,6 @@ export class DetailProductComponent implements OnInit {
     this.commentService.getAllcommentsByProduct(product_id).subscribe({
       next: (apiResponse: ApiResponse) => {
         this.comments = apiResponse.data;
-        console.log(this.comments);
       },
       error: (error: HttpErrorResponse) => {
         console.error(error?.error?.message ?? '');

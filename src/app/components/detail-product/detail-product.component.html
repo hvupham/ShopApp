@@ -1,184 +1,120 @@
 <app-header></app-header>
-<div class="container">
-    <div class="intro-section">
+<div class="container mx-auto">
+  <div class="intro-section my-8">
+    <!-- Nội dung phần giới thiệu có thể thêm vào đây -->
+  </div>
 
-    </div>    
-    <div class="row">
-      <div class="col-md-5">
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            @for(image of product?.product_images;
-                track image.image_url;let i = $index;) {
-              <div 
-                 class="carousel-item" 
-                  [ngClass]="{'active': i === currentImageIndex}">
-                <div class="square-image">
-                  <img [src]="image.image_url" class="product-image" alt="Product Image">
-                </div>
-              </div>  
-            }            
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
+      <!-- Swiper Slider -->
+      <swiper-container
+        loop="true"
+        navigation="true"
+        pagination="true"
+        autoplay='{"delay": 3000}'
+        effect="coverflow"
+        grabCursor="true"
+        centeredSlides="true"
+        slidesPerView="auto"
+        coverflowEffect='{"rotate": 50, "stretch": 0, "depth": 100, "modifier": 1, "slideShadows": true}'>
+        <ng-container *ngFor="let image of product?.product_images">
+          <swiper-slide>
+            <img [src]="image?.image_url" class="w-full object-cover" alt="Product Image" />
+          </swiper-slide>
+        </ng-container>
+      </swiper-container>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-2 mt-4">
+        <ng-container *ngFor="let image of product?.product_images; let i = index">
+          <div
+            class="w-20 h-20 border-2 border-gray-200 cursor-pointer"
+            [ngClass]="{ 'border-blue-500': i === currentImageIndex }"
+            (click)="thumbnailClick(i)">
+            <img [src]="image.image_url" class="w-full h-full object-cover" alt="Thumbnail Image" />
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" 
-                  data-bs-slide="prev" (click)="previousImage()">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" 
-                  data-bs-slide="next" (click)="nextImage()">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="product-details space-y-4">
+      <h2 class="text-4xl font-bold">{{ product?.name }}</h2>
+      <p><span class="font-bold text-xl">Price:</span> {{ product?.price | number: '1.0-2' }} VND</p>
+      <p><span class="font-bold text-xl">Total Price:</span> {{ getTotalPrice() | number: '1.0-2' }} VND</p>
+      <h2 class="font-bold text-xl">Description</h2>
+      <p>{{ product?.description }}</p>
+
+      <div class="space-y-2">
+        <button class="bg-blue-500 text-white py-2 px-4 rounded">Add to cart</button>
+        <button class="bg-green-500 text-white py-2 px-4 rounded">Buy now</button>
+      </div>
+
+      <div class="product-quantity flex items-center gap-2 mt-4">
+        <button class="px-4 py-2 bg-gray-300" (click)="decreaseQuantity()">-</button>
+        <input type="text" class="border text-center w-12" [value]="quantity" />
+        <button class="px-4 py-2 bg-gray-300" (click)="increaseQuantity()">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-review my-8">
+    <section>
+      <h1 class="font-bold text-2xl mb-4">Review</h1>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div>
+          <div *ngIf="comments" class="space-y-4">
+            <ng-container *ngFor="let cmt of comments; trackBy: trackByCommentId">
+              <div>
+                <p class="font-bold">{{ cmt.user.fullname }}</p>
+                <p>{{ cmt.content }}</p>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="mt-6">
+            <label for="comment" class="font-bold block mb-2">Comment</label>
+            <input type="text" class="border w-full py-2 px-4 rounded" [(ngModel)]="insertCommentDTO.content" />
+            <button class="bg-blue-500 text-white py-2 px-4 rounded mt-4" (click)="insertComment()">Comment</button>
+          </div>
         </div>
-        <div class="row">
-          <div class="thumbnail-container">
-            @for(image of product?.product_images; 
-                 track image.image_url; let i = $index) {
-                  <div 
-                    class="thumbnail-item" 
-                    [ngClass]="{'active': i === currentImageIndex}"
-                    (click)="thumbnailClick(i)">
-                  <img [src]="image.image_url" class="thumbnail-image" alt="Thumbnail Image">
-                </div>
-            }
-            
+
+        <div>
+          <div class="flex items-center space-x-4 mb-4">
+            <p class="text-2xl font-bold text-yellow-500">4.2</p>
+            <div class="flex space-x-1 text-yellow-500">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="text-blue-500">1001 reviews</p>
+          </div>
+
+          <!-- Progress bars for star ratings -->
+          <div class="space-y-2">
+            <div class="flex items-center">
+              <span class="w-4">5</span>
+              <div class="w-full h-2 bg-gray-200 mx-2">
+                <div class="bg-yellow-500 h-full" style="width: 53%;"></div>
+              </div>
+              <span>53%</span>
+            </div>
+            <div class="flex items-center">
+              <span class="w-4">4</span>
+              <div class="w-full h-2 bg-gray-200 mx-2">
+                <div class="bg-yellow-500 h-full" style="width: 29%;"></div>
+              </div>
+              <span>29%</span>
+            </div>
+            <!-- Các mức đánh giá khác -->
           </div>
         </div>
       </div>
-      <div class="col-md-7 detail-pr">
-        <div class="product-details">
-          <h2 class="text-4xl mb-4 font-bold">{{ product?.name }}</h2>
-          <!-- <p>{{ product?.description }}</p> -->
-          <p><span class="font-bold text-xl">Price:</span> {{ product?.price | number:'1.0-2' }} VND</p>
-          <p ><span class="font-bold text-xl">Total Price:</span> {{ getTotalPrice() | number:'1.0-2' }} VND</p>
-          <h2 class="font-bold text-xl">Description</h2>
-          <p> {{product?.description}} </p>
+    </section>
 
-          <div class="product-actions">
-            <button class="btn btn-primary" (click)="addToCart()">Add to cart</button>
-            <button class="btn btn-success" (click)="buyNow()">Buy now</button>
-          </div>
-          <div class="product-quantity">
-            <div class="border-wrapper">
-              <button (click)="decreaseQuantity()">-</button>
-              <input type="text" [value]="quantity">
-              <button (click)="increaseQuantity()">+</button>
-            </div>
-          </div>
-        </div>
-      </div>      
-    </div>    
-    
-    <div class="product-review">
-      <section >
-          <h1 class="font-weight-bold">Review</h1>
-          <div class="row gx-5">
-            <div class="content">
-              <div class="col-md-7">
-                <div>               
-                  <div class="box-comment">
-                    <div *ngIf="comments" class="comment-container">
-                      <div *ngFor="let cmt of comments; trackBy: trackByCommentId; let i = index;">
-                        <p style="font-weight: bold;">{{cmt.user.fullname}}</p>
-                        <p>{{cmt.content}}</p>
-                      </div>
-                    </div>
-                  </div>                  
-                </div>
-                
-                  <!-- phần thêm comment -->
-                  <div #Comment></div>
-                  <div class="form-group mt-5">
-                      <label for="comment" class="font-weight-bold">Comment</label>
-                      <input type="text" class="form-control" 
-                        [(ngModel)]="insertCommentDTO.content"
-                        >
-                  </div>
-                  <button (click)="insertComment()" class="btn btn-primary mt-3">Comment</button>
-              </div>
-              <div class="col-md-5">
-                <div class="d-flex align-items-center">
-                    <p class="font-weight-bold" style="color: #ff9f00;">4.2</p>
-                    <div class="star-rating">
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star text-warning"></i>
-                        <i class="fas fa-star-half-alt text-warning"></i>
-                    </div>
-                    <p class="ms-3" style="color:#0071e3;">1001 reviews</p>
-                </div>
-                <div>
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 me-2">5</p>
-                            <i class="fas fa-star text-warning"></i>
-                        </div>
-                        <div class="progress flex-grow-1">
-                            <div class="progress-bar" role="progressbar" style="width: 53%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="ms-3">53%</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 me-2">4</p>
-                            <i class="fas fa-star text-warning"></i>
-
-                        </div>
-                        <div class="progress flex-grow-1">
-                            <div class="progress-bar" role="progressbar" style="width: 29%;" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="ms-3">29%</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 me-2">3</p>
-                            <i class="fas fa-star text-warning"></i>
-
-                        </div>
-                        <div class="progress flex-grow-1">
-                            <div class="progress-bar" role="progressbar" style="width: 9%;" aria-valuenow="9" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="ms-3">9%</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 me-2">2</p>
-                            <i class="fas fa-star text-warning"></i>
-
-                        </div>
-                        <div class="progress flex-grow-1">
-                            <div class="progress-bar" role="progressbar" style="width: 4%;" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="ms-3">4%</p>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="d-flex align-items-center">
-                            <p class="m-0 me-2">1</p>
-                            <i class="fas fa-star text-warning"></i>
-
-                        </div>
-                        <div class="progress flex-grow-1">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 6%;" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="ms-3">6%</p>
-                    </div>
-                </div>
-            </div>
-            
-            </div>
-
-
-            
-          </div>
-      </section>
-
-  
-
-    <h2 style="color:aliceblue;">Related</h2>
-    <div>
-
-      <app-list-product [categoryId]="product?.category_id" ></app-list-product>
-    </div>
-    </div>
+    <h2 class="text-2xl text-white mt-8">Related</h2>
+    <app-list-product [categoryId]="product?.category_id"></app-list-product>
+  </div>
 </div>
 <!-- <app-footer></app-footer> -->
