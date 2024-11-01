@@ -7,7 +7,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <div>
       <!-- Swiper Slider -->
-      <swiper-container
+      <!-- <swiper-container
         loop="true"
         navigation="true"
         pagination="true"
@@ -22,8 +22,34 @@
             <img [src]="image?.image_url" class="w-full object-cover" alt="Product Image" />
           </swiper-slide>
         </ng-container>
-      </swiper-container>
+      </swiper-container> -->
 
+      <div class="col-md-6">
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            @for(image of product?.product_images;
+                track image.image_url;let i = $index;) {
+              <div 
+                 class="carousel-item" 
+                  [ngClass]="{'active': i === currentImageIndex}">
+                <div class="square-image">
+                  <img [src]="image.image_url" class="product-image" alt="Product Image">
+                </div>
+              </div>  
+            }            
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" 
+                  data-bs-slide="prev" (click)="previousImage()">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" 
+                  data-bs-slide="next" (click)="nextImage()">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
       <!-- Thumbnails -->
       <div class="flex gap-2 mt-4">
         <ng-container *ngFor="let image of product?.product_images; let i = index">
@@ -45,8 +71,8 @@
       <p>{{ product?.description }}</p>
 
       <div class="space-y-2">
-        <button class="bg-blue-500 text-white py-2 px-4 rounded">Add to cart</button>
-        <button class="bg-green-500 text-white py-2 px-4 rounded">Buy now</button>
+        <button class="bg-blue-500 text-white py-2 px-4 rounded"  (click)="addToCart()">Add to cart</button>
+        <button class="bg-green-500 text-white py-2 px-4 rounded" (click)="buyNow()" >Buy now</button>
       </div>
 
       <div class="product-quantity flex items-center gap-2 mt-4">

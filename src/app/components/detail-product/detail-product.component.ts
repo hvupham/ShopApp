@@ -100,7 +100,6 @@ export class DetailProductComponent implements OnInit {
     this.productService.getDetailProduct(this.product_id).subscribe({
       next: (apiResponse: ApiResponse) => {
         const response = apiResponse.data;
-        console.log(response);
         if (response.product_images && response.product_images.length > 0) {
           response.product_images.forEach((product_image: ProductImage) => {
             if (!product_image.image_url.startsWith('http')) {
@@ -184,7 +183,6 @@ export class DetailProductComponent implements OnInit {
     });
   }
   insertComment() {
-    console.log(this.insertCommentDTO);
     if (this.insertCommentDTO.content.trim() !== '') {
       console.log('Comment content:', this.insertCommentDTO.content);
       this.commentService.insertComment(this.insertCommentDTO).subscribe({
