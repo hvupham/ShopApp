@@ -15,10 +15,12 @@ import { AdminGuardFn } from './guards/admin.guard';
 import { AuthGuardFn } from './guards/auth.guard';
 //import { OrderAdminComponent } from './components/admin/order/order.admin.component';
 import { UpdateUserComponent } from './components/user-profile/update-user/update.profile.component';
+import { AuthCallbackComponent } from './components/auth-callback/auth-callback.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },  
   { path: 'register', component: RegisterComponent },
+  { path: 'auth/google/callback', component: AuthCallbackComponent },
   { path: 'products/:id', component: DetailProductComponent },  
   { path: 'orders', component: OrderComponent,canActivate:[AuthGuardFn] },
   { path: 'user-profile', component: UserProfileComponent, canActivate:[AuthGuardFn] },
